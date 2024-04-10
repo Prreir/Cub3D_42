@@ -87,7 +87,7 @@ void	draw_minimap(t_data *data)
 			if (x == (size_t)data->player.start_x && y == \
 				(size_t)data->player.start_y)
 				draw_square(&data->img, x, y, YELLOW);
-			else if (data->map[y][x] == 1)
+			else if (data->map[y][x] == '1')
 				draw_square(&data->img, x, y, BLACK);
 			x += 1;
 		}
