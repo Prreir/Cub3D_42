@@ -17,7 +17,7 @@ bool	has_valid(bool player)
 	if (!player)
 		return (write_error(NO_START));
 	return (true);
-}	
+}
 
 void	set_info(t_player *info, int x, int y, char orientation)
 {

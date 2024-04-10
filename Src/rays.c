@@ -91,7 +91,7 @@ void	wall_height(t_data *data)
 		data->ray.perp_wall_dist = data->ray.side_dist_y \
 		- data->ray.delta_dist_y;
 	data->ray.line_height = (int)(HEIGHT / data->ray.perp_wall_dist);
-	data->ray.draw_start = - data->ray.line_height / 2 + HEIGHT / 2;
+	data->ray.draw_start = -data->ray.line_height / 2 + HEIGHT / 2;
 	if (data->ray.draw_start < 0)
 		data->ray.draw_start = 0;
 	data->ray.draw_end = data->ray.line_height / 2 + HEIGHT / 2;

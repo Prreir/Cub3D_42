@@ -17,18 +17,18 @@
 /*                                  Includes                                  */
 /* -------------------------------------------------------------------------- */
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include "libft.h"
-#include "get_next_line.h"
-#include "mlx.h"
-#include "mlx_int.h"
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <math.h>
+# include <stdint.h>
+# include <stdbool.h>
+# include "libft.h"
+# include "get_next_line.h"
+# include "mlx.h"
+# include "mlx_int.h"
 
 /* -------------------------------------------------------------------------- */
 /*                                   Defines                                  */
@@ -44,13 +44,13 @@
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
 
-#define WHITE 0xFFFAFA
-#define BLACK 0x000000
-#define YELLOW 0xFFFF00
-#define MINIMAP_SQUARES_PADDING 4
+# define WHITE 0xFFFAFA
+# define BLACK 0x000000
+# define YELLOW 0xFFFF00
+# define MINIMAP_SQUARES_PADDING 4
 
-#define MARGIN 0.1f
-#define MOVESPEED 0.08f
+# define MARGIN 0.1f
+# define MOVESPEED 0.08f
 
 # define INV_ARGS "Error\nInvalid Arguments"
 # define INV_MAP "Error\nInvalid Map File"
@@ -76,7 +76,8 @@
 /*                                   Structs                                  */
 /* -------------------------------------------------------------------------- */
 
-typedef struct s_ray {
+typedef struct s_ray
+{
 	double	camera_x;
 	double	dir_x;
 	double	dir_y;
@@ -101,45 +102,47 @@ typedef struct s_ray {
 	double	step;
 }	t_ray;
 
-typedef struct s_player {
-    double	start_x;
-    double	start_y;
-    double	dirx;
-    double	diry;
+typedef struct s_player
+{
+	double	start_x;
+	double	start_y;
+	double	dirx;
+	double	diry;
 	double	planex;
 	double	planey;
 	char	orientation;
 }	t_player;
 
-typedef struct s_texture{
+typedef struct s_texture
+{
 	void	*ptr;
 	char	*addr;
 	int		bitpp;
 	int		length_line;
-	int		endian;
-	
+	int		endian;	
 }	t_texture;
 
-typedef	struct s_mlx{
+typedef struct s_mlx
+{
 	void	*ptr;
 	void	*win;
-	
 }	t_mlx;
 
-typedef struct s_data{
-	size_t	len;
-	char	**map;
-	int		movements[4];
-	int		ceiling_rgb[3];
-	int		floor_rgb[3];
-	t_mlx	mlx;
-	t_texture	img;
-	t_texture	no;
-	t_texture	so;
-	t_texture	ea;
-	t_texture	we;
-	t_player	player;
-	t_ray	ray;
+typedef struct s_data
+{
+	size_t			len;
+	char			**map;
+	int				movements[4];
+	int				ceiling_rgb[3];
+	int				floor_rgb[3];
+	t_mlx			mlx;
+	t_texture		img;
+	t_texture		no;
+	t_texture		so;
+	t_texture		ea;
+	t_texture		we;
+	t_player		player;
+	t_ray			ray;
 }	t_data;
 
 /* -------------------------------------------------------------------------- */
@@ -239,7 +242,8 @@ static inline t_texture	new_img(void *mlx_ptr)
 	return (new_img);
 }
 
-static inline void	put_pixel_in_canvas(t_texture *img, int x, int y, uint32_t color)
+static inline void	put_pixel_in_canvas(t_texture *img, \
+	int x, int y, uint32_t color)
 {
 	char	*dst;
 

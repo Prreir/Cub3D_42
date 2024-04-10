@@ -69,7 +69,7 @@ bool	parse_rgb(char *id, int *rgb_arr, char **map)
 			return (value);
 		}
 		boom_file(temp);
-	}	
+	}
 	return (write_error(ELE_MIS));
 }
 
@@ -77,7 +77,7 @@ bool	parse_coord(char *coord, void *mlx, t_texture *texture, char **map)
 {
 	size_t		i;
 	char		**temp;
-	t_texture		tex;
+	t_texture	tex;
 
 	i = 0;
 	while (i < 6)

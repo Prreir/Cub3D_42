@@ -20,12 +20,13 @@ bool	only_spaces(const char *str)
 	while (str[i])
 	{
 		if (str[i] != '\t' || str[i] != '\n' || str[i] != '\v'
-		|| str[i] != '\f' || str[i] != '\r' || str[i] != ' ')
+			|| str[i] != '\f' || str[i] != '\r' || str[i] != ' ')
 			return (false);
 		i += 1;
 	}
 	return (true);
 }
+
 char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
 	size_t	i;

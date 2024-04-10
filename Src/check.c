@@ -86,5 +86,5 @@ bool	check(int argc, char **argv)
 		write_error(INV_MAP);
 		return (false);
 	}
-    return (true);
+	return (true);
 }

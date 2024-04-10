@@ -62,15 +62,15 @@ bool	mouse_trespass(int x, int y, t_data *data, double *oldx)
 
 int	movemouse(int x, int y, t_data *data)
 {
-	double old_dirx;
-	double old_planex;
-	double distance;
-	static double oldx = 0;
+	double			old_dirx;
+	double			old_planex;
+	double			distance;
+	static double	oldx = 0;
 
 	old_dirx = data->player.dirx;
 	old_planex = data->player.planex;
-	if(mouse_trespass(x, y, data, &oldx))
-		return(0);
+	if (mouse_trespass(x, y, data, &oldx))
+		return (0);
 	distance = (oldx - x) * 0.002;
 	oldx = x;
 	data->player.dirx = data->player.dirx * cos(distance) - \
@@ -81,5 +81,5 @@ int	movemouse(int x, int y, t_data *data)
 			data->player.planey * sin(distance);
 	data->player.planey = old_planex * sin(distance) + \
 			data->player.planey * cos(distance);
-	return(0);
+	return (0);
 }
