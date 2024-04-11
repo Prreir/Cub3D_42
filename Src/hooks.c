@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 12:56:05 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/10 12:58:58 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:32:47 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ int	getkeys_release(int keycode, t_data *data)
 
 bool	mouse_trespass(int x, int y, t_data *data, double *oldx)
 {
-	if (y != HEIGHT / 2)
-		mlx_mouse_move(data->mlx.ptr, data->mlx.win, x, HEIGHT / 2);
-	else if (x < 50 || x >= WIDTH - 50)
+	if (x < 100 || x >= WIDTH - 100)
 	{
 		*oldx = WIDTH / 2;
 		mlx_mouse_move(data->mlx.ptr, data->mlx.win, WIDTH / 2, y);
