@@ -1,4 +1,4 @@
-<h1 align="center">42 Cursus - Cub3D <img src="https://imgur.com/MbpYAc0.png" alt="c" align="right" width="65" height="65"/><img src="https://github.com/devicons/devicon/blob/master/icons/linux/linux-original.svg" alt="Linux" width="60" height="60" align="right"/></h1>
+<h1 align="center">42 Cursus - Cub3D <img src="https://github.com/devicons/devicon/blob/master/icons/linux/linux-original.svg" alt="Linux" width="60" height="60" align="right"/></h1>
 <p align="center">This repository contains code developed at 42 Porto for Cub3D Project.</p>
 <p align="center">Project done in collaboration with <a href="https://github.com/Pqndk19">Pqndk19</a></p>
 <h2 align="left"> 📄 Subject </h2>
