@@ -6,11 +6,24 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:16:30 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/10 11:06:20 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:21:31 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+bool	is_spaces(char c)
+{
+	if (c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r' || c == ' ')
+		return (true);
+	return (false);
+}
+
+bool	fits_in_intrange(int n, int lowest, int highest)
+{
+	return (n >= lowest && n <= highest);
+}
 
 bool	only_spaces(const char *str)
 {
@@ -66,19 +79,4 @@ char	*trim_free(char *s1, char const *set)
 	ft_strncpy(trim, (s1 + beg), end);
 	free(s1);
 	return (trim);
-}
-
-int	write_error(char *msg)
-{
-	if (msg)
-		ft_putendl_fd(msg, STDERR_FILENO);
-	return (0);
-}
-
-void	error_msg(char *msg, t_data *data)
-{
-	if (data)
-		boom(data);
-	write_error(msg);
-	exit(1);
 }

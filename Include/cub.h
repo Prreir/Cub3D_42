@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:04:37 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/10 13:08:09 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:22:32 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,15 +199,17 @@ bool	is_empty(char *file);
 bool	parse(t_data *data, char *file);
 
 //BOOM.C
+int		write_error(char *error_msg);
+void	error_msg(char *msg, t_data *data);
 void	boom_file(char **file);
 void	boom(t_data *data);
 
 //UTILS.C
+bool	is_spaces(char c);
+bool	fits_in_intrange(int n, int lowest, int highest);
 bool	only_spaces(const char *str);
 char	*ft_strncpy(char *dest, const char *src, size_t n);
 char	*trim_free(char *s1, char const *set);
-int		write_error(char *error_msg);
-void	error_msg(char *msg, t_data *data);
 
 //CHECK.C
 bool	is_onstr(const char *str, int ch);
@@ -218,19 +220,6 @@ bool	check(int argc, char **argv);
 
 //MAIN.C
 void	init(t_data *data);
-
-static inline bool	is_spaces(char c)
-{
-	if (c == '\t' || c == '\n' || c == '\v'
-		|| c == '\f' || c == '\r' || c == ' ')
-		return (true);
-	return (false);
-}
-
-static inline bool	fits_in_intrange(int n, int lowest, int highest)
-{
-	return (n >= lowest && n <= highest);
-}
 
 static inline t_texture	new_img(void *mlx_ptr)
 {
