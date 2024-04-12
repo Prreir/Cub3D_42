@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:04:37 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/11 11:22:32 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/12 10:59:08 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,9 +216,11 @@ bool	is_onstr(const char *str, int ch);
 bool	load_img(void *mlx, t_texture *tex, char **coord);
 size_t	ft_len(char **str);
 bool	check_cmp(char *str1, char *str2);
-bool	check(int argc, char **argv);
+bool	check(char **argv);
 
 //MAIN.C
+int		show_window(t_data *data);
+void	hooks(t_data *data);
 void	init(t_data *data);
 
 static inline t_texture	new_img(void *mlx_ptr)
