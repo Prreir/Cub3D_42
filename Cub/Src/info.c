@@ -6,36 +6,36 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:01:57 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/12 22:28:34 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/14 20:51:04 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	map_info2(t_map *map, char *line, int j, int i)
+int	map_info2(t_data *data, char *tmp, int j, int i)
 {
-	char	*line2;
+	char	*line;
 
-	if (line[0] == '\n')
+	if (tmp[0] == '\n')
 	{
-		free(line);
+		free(tmp);
 		return (1);
 	}
-	line2 = ft_strdup(line);
-	map->map[i] = ft_strtrim(line2, "\n");
-	while (line[j])
+	line = ft_strdup(tmp);
+	data->map[i] = ft_strtrim(line, "\n");
+	while (tmp[j])
 	{
-		if (line[j] == 'N' || line[j] == 'S'
-			|| line[j] == 'W' || line[j] == 'E')
+		if (tmp[j] == 'N' || tmp[j] == 'S'
+			|| tmp[j] == 'W' || tmp[j] == 'E')
 		{
-			map->player.pos_x = j + 0.5;
-			map->player.pos_y = i + 0.5;
-			map->player.dir = line[j];
-			map->map[i][j] = '0';
+			data->player.start_x = j + 0.5;
+			data->player.start_x = i + 0.5;
+			data->player.orientation = tmp[j];
+			data->map[i][j] = '0';
 		}
 		j++;
 	}
-	free(line2);
+	free(line);
 	return (0);
 }
 
@@ -48,7 +48,7 @@ void	map_info(char *file, t_data *data)
 
 	data->map = malloc(sizeof(char *) * (data->len + 1));
 	fd = open(file, O_RDONLY);
-	init_textures(data, fd);
+	textures_info(data, fd);
 	i = 0;
 	while (1)
 	{

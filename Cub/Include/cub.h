@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 20:13:28 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/12 22:22:40 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/14 21:33:27 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,41 +149,45 @@ typedef struct s_data
 /*                                 Prototypes                                 */
 /* -------------------------------------------------------------------------- */
 
-//MOVEMENT.C
-void	player_movement(t_data *data);
+// //MOVEMENT.C
+// void	player_movement(t_data *data);
 
-//RAYS2.C
-void	draw_minimap(t_data *data);
-void	draw_square(t_texture *img, int x, int y, int color);
-void	draw_vertical_line(t_data *data, int i);
-void	init_rays(t_data *data, int i);
+// //RAYS2.C
+// void	draw_minimap(t_data *data);
+// void	draw_square(t_texture *img, int x, int y, int color);
+// void	draw_vertical_line(t_data *data, int i);
+// void	init_rays(t_data *data, int i);
 
-//RAYS.C
-void	wall_pixel(t_data *data);
-void	wall_height(t_data *data);
-void	distance_to_wall(t_data *data, char **map);
-void	hit_wall(t_data	*data);
-void	cast_rays(t_data *data);
+// //RAYS.C
+// void	wall_pixel(t_data *data);
+// void	wall_height(t_data *data);
+// void	distance_to_wall(t_data *data, char **map);
+// void	hit_wall(t_data	*data);
+// void	cast_rays(t_data *data);
 
-//HOOKS.C
-int		closewin(t_data *data);
-int		getkeys_press(int keycode, t_data *data);
-int		getkeys_release(int keycode, t_data *data);
-bool	mouse_trespass(int x, int y, t_data *data, double *oldx);
-int		movemouse(int x, int y, t_data *data);
+// //HOOKS.C
+// int		closewin(t_data *data);
+// int		getkeys_press(int keycode, t_data *data);
+// int		getkeys_release(int keycode, t_data *data);
+// bool	mouse_trespass(int x, int y, t_data *data, double *oldx);
+// int		movemouse(int x, int y, t_data *data);
 
-//INIT_PLAYER.C
-void	init_player(t_data *data);
+// //INIT_PLAYER.C
+// void	init_player(t_data *data);
 
-//PLAYER.C
-bool	has_valid(bool player);
-void	set_info(t_player *info, int x, int y, char orientation);
-bool	player_info(char **map, t_data *data);
+// //PLAYER.C
+// bool	has_valid(bool player);
+// void	set_info(t_player *info, int x, int y, char orientation);
+// bool	player_info(char **map, t_data *data);
 
-//MAP.C
-size_t	get_line_last(char *map);
-bool	walls(char **map);
-bool	parse_map(char **map, t_data *data);
+// //MAP.C
+// size_t	get_line_last(char *map);
+// bool	walls(char **map);
+// bool	parse_map(char **map, t_data *data);
+
+//TEXTURES.C
+void	textures_info2(t_data *map, char *line, int j);
+void	textures_info(t_data *data, int fd);
 
 //LEN.C
 int		the_last(char *tmp, char c);
@@ -191,6 +195,9 @@ int		len_file2(char *tmp, int i, t_data *data);
 void	len_file(char *file, t_data *data);
 
 //INFO.C
+int		map_info2(t_data *data, char *tmp, int j, int i);
+void	map_info(char *file, t_data *data);
+int		valid(char *file);
 int		info(t_data *data, char *file);
 
 //BOOM.C
@@ -201,10 +208,13 @@ void	boom_textures(t_data *data);
 void	boom(t_data *data);
 
 //UTILS.C
+int		rgb_nbr(int n, int lowest, int highest);
+int		is_all_digits(const char *str);
 int		is_spaces(char c);
 int		valid_char(char c);
 
 //CHECK.C
+int		check_rgb(int n, int low, int high);
 int		check_cmp(char *str1, char *str2);
 int		check(char **argv, char *file);
 

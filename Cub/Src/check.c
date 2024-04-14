@@ -6,11 +6,16 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 20:27:49 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/12 18:46:39 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/14 21:27:02 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+int		check_rgb(int n, int low, int high)
+{
+	return (n >= low && n <= high);
+}
 
 int	check_cmp(char *str1, char *str2)
 {
