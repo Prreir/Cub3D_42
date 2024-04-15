@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:08:08 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/10 13:20:18 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:15:42 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	show_window(t_data *data)
 	return (0);
 }
 
-void	hook_start(t_data *data)
+void	hooks(t_data *data)
 {
 	mlx_mouse_move(data->mlx.ptr, data->mlx.win, cos(data->player.dirx) \
 	+ cos(data->player.diry), (HEIGHT / 2));
@@ -33,11 +33,21 @@ void	hook_start(t_data *data)
 	mlx_loop(data->mlx.ptr);
 }
 
+void	finish_gnl(char *line, int fd)
+{
+	free(line);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		free(line);
+	}
+	close(fd);
+}
+
 void	init(t_data *data)
 {
-	data->mlx.ptr = mlx_init();
-	if (!data->mlx.ptr)
-		error_msg(MLX_INIT, data);
 	data->mlx.win = NULL;
 	data->no.ptr = NULL;
 	data->so.ptr = NULL;
@@ -59,14 +69,22 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (!check(argc, argv))
-		error_msg(NULL, NULL);
-	init(&data);
-	if (!parse(&data, argv[1]))
-		error_msg(NULL, &data);
-	data.mlx.win = mlx_new_window(data.mlx.ptr, WIDTH, HEIGHT, "cub3D");
-	if (!data.mlx.win)
-		error_msg(WIN_INIT, &data);
-	hook_start(&data);
+	if (argc == 2)
+	{
+		if (!check(argv, argv[1]))
+			error_msg(NULL, NULL);
+		init(&data);
+		if (!parse(&data, argv[1]))
+			error_msg(NULL, &data);
+		data.mlx.ptr = mlx_init();
+		if (!data.mlx.ptr)
+			error_msg(MLX_INIT, &data);
+		data.mlx.win = mlx_new_window(data.mlx.ptr, WIDTH, HEIGHT, "cub3D");
+		if (!data.mlx.win)
+			error_msg(WIN_INIT, &data);
+		hooks(&data);
+	}
+	else if (argc != 2)
+		error_msg(INV_ARGS, NULL);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:04:37 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/11 11:22:32 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:19:00 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ bool	parse_textures(t_data *data, char **texture);
 size_t	get_lines(char *file);
 char	**get_map(char *file, int fd);
 char	**get_texture(int fd);
-bool	is_empty(char *file);
+bool	valid_parse(char *file);
 bool	parse(t_data *data, char *file);
 
 //BOOM.C
@@ -216,9 +216,12 @@ bool	is_onstr(const char *str, int ch);
 bool	load_img(void *mlx, t_texture *tex, char **coord);
 size_t	ft_len(char **str);
 bool	check_cmp(char *str1, char *str2);
-bool	check(int argc, char **argv);
+bool	check(char **argv, char *file);
 
 //MAIN.C
+int		show_window(t_data *data);
+void	hooks(t_data *data);
+void	finish_gnl(char *line, int fd);
 void	init(t_data *data);
 
 static inline t_texture	new_img(void *mlx_ptr)

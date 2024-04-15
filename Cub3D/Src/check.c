@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:13:59 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/10 11:37:35 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:18:11 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,17 @@ bool	check_cmp(char *str1, char *str2)
 	return (true);
 }
 
-bool	check(int argc, char **argv)
+bool	check(char **argv, char *file)
 {
 	size_t	id;
 
-	if (argc != 2)
-	{
-		write_error(INV_ARGS);
-		return (false);
-	}
 	id = ft_strlen(argv[1]) - 4;
 	if (!check_cmp(&argv[1][id], ".cub"))
+	{
+		write_error(INV_MAP);
+		return (false);
+	}
+	if (open(file, O_RDONLY) == -1)
 	{
 		write_error(INV_MAP);
 		return (false);

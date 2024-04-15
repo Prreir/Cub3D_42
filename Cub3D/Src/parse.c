@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 13:51:06 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/10 11:45:07 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/15 14:19:23 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ char	**get_map(char *file, int fd)
 	i = 0;
 	while (i < lines)
 	{
-		line = trim_free(get_next_line(fd), "\n");
+		line = ft_strtrim(get_next_line(fd), "\n");
 		map[i] = line;
+		free(line);
 		i += 1;
 	}
 	map[i] = NULL;
@@ -68,39 +69,63 @@ char	**get_textures(int fd)
 	char	*line;
 
 	scene = malloc((6 + 1) * sizeof(char *));
-	i = 0;
-	while (i < 6)
+	i = -1;
+	while (++i < 6)
 	{
-		line = trim_free(get_next_line(fd), "\n");
+		line = ft_strtrim(get_next_line(fd), "\n");
+		if (line[0] == '1' || line[0] == '0')
+		{
+			finish_gnl(line, fd);
+			error_msg("Map can't come first.", NULL);
+		}
 		if (only_spaces(line))
 		{
 			free(line);
 			continue ;
 		}
 		scene[i] = line;
-		i += 1;
+		free(line);
 	}
 	scene[i] = NULL;
 	free(get_next_line(fd));
 	return (scene);
 }
 
-bool	is_empty(char *file)
+int	valid_char(char c)
 {
-	bool	return_value;
-	char	*temp;
-	int		fd;
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E'
+		|| c == 'F' || c == 'C' || c == '1' || is_spaces(c))
+		return (1);
+	return (0);
+}
 
-	return_value = false;
+bool	valid_parse(char *file)
+{
+	int		fd;
+	int		i;
+	char	*line;
+
+	i = 0;
 	fd = open(file, O_RDONLY);
-	if (!fd)
-		return (write_error(MAP_INE));
-	temp = get_next_line(fd);
-	if (temp == NULL)
-		return_value = true;
-	free(temp);
-	close(fd);
-	return (return_value);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+		{
+			free(line);
+			if (i == 0)
+				return (false);
+			break ;
+		}
+		if (line[0] != '\n' && !valid_char(line[0]))
+		{
+			free(line);
+			return (false);
+		}
+		free(line);
+		i++;
+	}
+	return (close(fd), true);
 }
 
 bool	parse(t_data *data, char *file)
@@ -111,10 +136,14 @@ bool	parse(t_data *data, char *file)
 	char	**map;
 
 	value = true;
+	if (!valid_parse(file))
+		return(write_error(INV_MAP));
 	fd = open(file, O_RDONLY);
-	if (fd == -1 || is_empty(file))
-		return (write_error(MAP_INE));
 	textures = get_textures(fd);
+	int	i;
+	i = -1;
+	while (textures[++i] != NULL)
+		printf("%s\n", textures[i]);
 	if (!parse_textures(data, textures))
 		value = false;
 	if (value != false)
