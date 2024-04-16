@@ -5,109 +5,118 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 21:32:58 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/14 22:16:16 by lugoncal         ###   ########.fr       */
+/*   Created: 2024/04/10 11:07:54 by lugoncal          #+#    #+#             */
+/*   Updated: 2024/04/15 17:47:56 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-// void	get_rgb(char *tmp, t_data *data, int j)
+// bool	is_all_digits(const char *str)
 // {
-// 	int		i;
-// 	int		index;
-// 	char	*line;
+// 	size_t	i;
 
-// 	index = 0;
-// 	while (tmp[++j] && index < 3)
+// 	i = 0;
+// 	while (str[i])
 // 	{
-// 		if (ft_isdigit(tmp[j]))
-// 		{
-// 			i = j;
-// 			line = ft_substr(line, i, j - i);
-// 			printf("%s\n", tmp);
-// 			if (tmp[0] == 'C')
-// 			{
-// 				data->ceiling_rgb[index++] = ft_atoi(tmp);
-// 				printf("C[%d]: %d\n", index, data->ceiling_rgb[index]);
-// 			}
-// 			else
-// 			{
-// 				data->floor_rgb[index++] = ft_atoi(tmp);
-// 				printf("F[%d]: %d\n", index, data->floor_rgb[index]);
-// 			}
-// 			free(line);
-// 		}
+// 		if (!(str[i] >= '0' && str[i] <= '9'))
+// 			return (false);
+// 		i += 1;
 // 	}
+// 	return (true);
 // }
 
-bool	assign_rgb(int *element, char **rgb)
-{
-	size_t	i;
+// bool	assign_rgb(int *element, char **rgb)
+// {
+// 	size_t	i;
 
-	i = 0;
-	if (ft_len(rgb) != 3)
-		return (write_error(RGB_VAL));
-	while (rgb[i])
-	{
-		if (!is_all_digits(rgb[i]))
-			return (write_error(RGB_VAL));
-		element[i] = ft_atoi(rgb[i]);
-		if (!fits_in_intrange(element[i], 0, 255))
-			return (write_error(RGB_OUT));
-		i += 1;
-	}
-	return (true);
-}
+// 	i = 0;
+// 	if (ft_len(rgb) != 3)
+// 		return (write_error(RGB_VAL));
+// 	while (rgb[i])
+// 	{
+// 		if (!is_all_digits(rgb[i]))
+// 			return (write_error(RGB_VAL));
+// 		element[i] = ft_atoi(rgb[i]);
+// 		if (!fits_in_intrange(element[i], 0, 255))
+// 			return (write_error(RGB_OUT));
+// 		i += 1;
+// 	}
+// 	return (true);
+// }
 
-void	get_rgb(char *tmp, t_data *data, int j)
-{
-	int		index;
-	char	**rgb;
+// bool	parse_rgb(char *id, int *rgb_arr, char **map)
+// {
+// 	int		i;
+// 	bool	value;
+// 	char	**temp;
+// 	char	**rgb;
 
-	i = 0;
-	while (line[++j] && index < 3)
-	{
-		rgb = ft_split(temp[1], ',');
-		if (!assign_rgb(tmp, rgb))
-		boom_file(rgb);
-		boom_file(temp);
-	}
-	error_msg(ELE_MIS, data);
-}
+// 	i = -1;
+// 	value = true;
+// 	while (++i < 6)
+// 	{
+// 		temp = ft_split(map[i], ' ');
+// 		if (check_cmp(id, temp[0]))
+// 		{
+// 			if (ft_len(temp) != 2)
+// 				value = write_error(INV_NBR);
+// 			rgb = ft_split(temp[1], ',');
+// 			if (value == true && !assign_rgb(rgb_arr, rgb))
+// 				value = false;
+// 			boom_file(rgb);
+// 			boom_file(temp);
+// 			return (value);
+// 		}
+// 		boom_file(temp);
+// 	}
+// 	return (write_error(ELE_MIS));
+// }
 
-void	textures_info2(t_data *data, char *tmp, int j)
-{
-	if (tmp[j] == 'C' || tmp[j] == 'F')
-		get_rgb(tmp, data, j);
-	// else if (tmp[j] == 'N' || tmp[j] == 'S'
-	// 	|| tmp[j] == 'E' || tmp[j] == 'W')
-	// 	get_textures(tmp, data, tmp[j], j);
-}
+// bool	parse_coord(char *coord, void *mlx, t_texture *texture, char **map)
+// {
+// 	size_t		i;
+// 	char		**temp;
+// 	t_texture	tex;
 
-void	textures_info(t_data *data, int fd)
-{
-	int		i;
-	int		j;
-	char	*tmp;
+// 	i = 0;
+// 	while (i < 6)
+// 	{
+// 		temp = ft_split(map[i], ' ');
+// 		if (check_cmp(coord, temp[0]))
+// 		{
+// 			if (ft_len(temp) != 2)
+// 			{
+// 				boom_file(temp);
+// 				return (write_error(INV_NBR));
+// 			}
+// 			if (!load_img(mlx, &tex, temp))
+// 				return (false);
+// 			*texture = tex;
+// 			return (true);
+// 		}
+// 		i += 1;
+// 		boom_file(temp);
+// 	}
+// 	return (false);
+// }
 
-	i = 0;
-	while (i < 6)
-	{
-		j = 0;
-		tmp = get_next_line(fd);
-		if (tmp[0] == '1' || tmp[0] == '0')
-			error_msg("Map can't come first.", data);
-		while (is_spaces(tmp[j]))
-			j++;
-		if (tmp[j] != '\n')
-			i++;
-		else
-		{
-			free(tmp);
-			continue ;
-		}
-		textures_info2(data, tmp, j);
-		free(tmp);
-	}
-}
+// bool	parse_textures(t_data *data, char **textures)
+// {
+// 	bool	value;
+
+// 	value = false;
+// 	if (parse_coord("NO", data->mlx.ptr,
+// 			&data->no, textures)
+// 		&& parse_coord("SO", data->mlx.ptr,
+// 			&data->so, textures)
+// 		&& parse_coord("EA", data->mlx.ptr,
+// 			&data->ea, textures)
+// 		&& parse_coord("WE", data->mlx.ptr,
+// 			&data->we, textures)
+// 		&& parse_rgb("C", data->ceiling_rgb, textures)
+// 		&& parse_rgb("F", data->floor_rgb, textures))
+// 		value = true;
+// 	boom_file(textures);
+// 	return (value);
+// }

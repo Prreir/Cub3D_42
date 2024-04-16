@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 20:17:49 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/14 20:38:34 by lugoncal         ###   ########.fr       */
+/*   Created: 2023/11/09 11:28:59 by lugoncal          #+#    #+#             */
+/*   Updated: 2024/04/15 17:48:49 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 // {
 // 	player_movement(data);
 // 	cast_rays(data);
-// 	mlx_destroy_image(data->mlx.ptr, data->img.ptr);
-// 	data->img.ptr = NULL;
 // 	return (0);
 // }
 
@@ -35,9 +33,6 @@
 
 void	init(t_data *data)
 {
-	data->mlx.ptr = mlx_init();
-	if (!data->mlx.ptr)
-		error_msg(MLX_INIT, data);
 	data->mlx.win = NULL;
 	data->no.ptr = NULL;
 	data->so.ptr = NULL;
@@ -61,16 +56,17 @@ int	main(int argc, char **argv)
 
 	if (argc == 2)
 	{
-		if (check(argv, argv[1]) == 1)
+		if (!check(argv, argv[1]))
 			error_msg(NULL, NULL);
 		init(&data);
-		if (info(&data, argv[1]) == 1)
-			error_msg(NULL, &data);
+		get_info(&data, argv[1]);
+		// valid_map(&data);
+		// get_positions(&data);
+		// data.mlx.ptr = mlx_init();
+		// if (!data.mlx.ptr)
+		// 	error_msg(INIT_MLX, &data);
 		// data.mlx.win = mlx_new_window(data.mlx.ptr, WIDTH, HEIGHT, "cub3D");
-		// if (!data.mlx.win)
-		// 	error_msg(WIN_INIT, &data);
 		// hooks(&data);
-		boom(&data);
 	}
 	else if (argc != 2)
 		error_msg(INV_ARGS, NULL);

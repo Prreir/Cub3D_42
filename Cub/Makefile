@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/04/11 20:23:41 by lugoncal          #+#    #+#              #
-#    Updated: 2024/04/12 22:11:19 by lugoncal         ###   ########.fr        #
+#    Created: 2023/11/09 11:17:10 by lugoncal          #+#    #+#              #
+#    Updated: 2024/04/15 17:47:46 by lugoncal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,12 +41,17 @@ OBJ_DIR	:=	./Obj/
 SRC	:=	main.c \
 		check.c \
 		boom.c \
-		info.c \
-		utils.c \
-		len.c \
+		get.c \
+		get2.c \
+		valid.c \
+		hooks.c \
+		init_player.c \
+		movement.c \
+		player.c \
+		rays.c \
+		rays2.c \
 		textures.c \
-		
-
+		utils.c \
 
 SOURCES	:=	$(addprefix $(SRC_DIR), $(SRC))
 OBJS	:=	$(SRC:.c=.o)

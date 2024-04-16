@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 20:13:28 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/14 21:33:27 by lugoncal         ###   ########.fr       */
+/*   Created: 2023/11/15 10:25:12 by lugoncal          #+#    #+#             */
+/*   Updated: 2024/04/15 17:41:27 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,35 @@
 /*                                  Includes                                  */
 /* -------------------------------------------------------------------------- */
 
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <math.h>
-# include <stdint.h>
-# include <stdbool.h>
-# include "libft.h"
-# include "get_next_line.h"
-# include "mlx.h"
-# include "mlx_int.h"
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include "libft.h"
+#include "get_next_line.h"
+#include "mlx.h"
+#include "mlx_int.h"
 
 /* -------------------------------------------------------------------------- */
 /*                                   Defines                                  */
 /* -------------------------------------------------------------------------- */
 
+# define INV_ARGS "Error\nInvalid Arguments"
+# define INV_MAP "Error\nInvalid Map File"
+# define MAP_INE "Error\nMap File Does Not Exist"
+# define INV_CHARS "Error\nInvalid Chars"
+# define TEXT_INV "Error\nInvalid Elements"
+# define ERROR_OP "Error\nCouldn't Open The File"
+# define MULT_STA "Error\nMultiple Start Positions"
+# define INV_CHAR "Error\nInvalid Map Composition"
+# define INIT_MLX "Error\nCouldn't Initialize Mlx"
+# define OPEN_WIN "Error\nCouldn't Open Window"
+
+# define WSIZE 64
 # define HEIGHT 720
 # define WIDTH 1280
 # define KEYPRESS_EVENT 2
@@ -41,35 +53,8 @@
 # define MOTION_NOT_EVENT 6
 # define DESTROY_NOT_EVENT 17
 # define FOV 60.0
-# define TEXTURE_WIDTH 64
-# define TEXTURE_HEIGHT 64
-
-# define WHITE 0xFFFAFA
-# define BLACK 0x000000
-# define YELLOW 0xFFFF00
-# define MINIMAP_SQUARES_PADDING 4
-
-# define MARGIN 0.1f
-# define MOVESPEED 0.08f
-
-# define INV_ARGS "Error\nInvalid Arguments"
-# define INV_MAP "Error\nInvalid Map File"
-# define MLX_INIT "Error\nmlx_init() Failed"
-# define WIN_INIT "Error\nmlx_new_window() Failed"
-# define INV_NBR "Error\nInvalid Amount Of Element"
-# define TEX_ERR "Error\nFailed To Open Texture"
-# define ADDR_ERR "Error\nmlx_get_data_addr() Failed"
-# define ELE_MIS "Error\nMandatory Scene Element Missing"
-# define RGB_VAL "Error\nInvalid RGB Values"
-# define RGB_OUT "Error\nRGB Value Out Of Bounds [0, 255]"
-# define NOT_WALLS "Error\nScene's Map Is Not Surrounded By Walls ('1')"
-# define INV_COMP "Error\nScene's Map Is Wrongly Composed"
-# define INV_POS "Error\nMore Than One Player's Start Position"
-# define NO_START "Error\nNo Player's Start Position"
-
-# define VALID_MAP "0NSEW"
-# define VALID_ELE "01NSEW"
-# define POS_CHARS "NSEW"
+# define TEXTURE_WIDTH 2048
+# define TEXTURE_HEIGHT 2048
 
 /* -------------------------------------------------------------------------- */
 /*                                   Structs                                  */
@@ -129,9 +114,9 @@ typedef struct s_mlx
 
 typedef struct s_data
 {
-	int				len;
-	int				wid;
+	size_t			len;
 	char			**map;
+	char			**file;
 	int				movements[4];
 	int				ceiling_rgb[3];
 	int				floor_rgb[3];
@@ -149,76 +134,62 @@ typedef struct s_data
 /*                                 Prototypes                                 */
 /* -------------------------------------------------------------------------- */
 
-// //MOVEMENT.C
-// void	player_movement(t_data *data);
+//rays2.c
+void	draw_square(t_texture *img, int x, int y, int color);
+void	draw_minimap(t_data *data);
+int		extract_pixel_from_image(t_texture *img, int x, int y);
+void	draw_vertical_line(t_data *data, int i);
 
-// //RAYS2.C
-// void	draw_minimap(t_data *data);
-// void	draw_square(t_texture *img, int x, int y, int color);
-// void	draw_vertical_line(t_data *data, int i);
-// void	init_rays(t_data *data, int i);
+//rays.c
+void	cast_rays(t_data *data);
+void	hit_wall(t_data *data);
+void	distance_to_wall(t_data *data, char **map);
+void	wall_height(t_data *data);
+void	wall_pixel(t_data *data);
 
-// //RAYS.C
-// void	wall_pixel(t_data *data);
-// void	wall_height(t_data *data);
-// void	distance_to_wall(t_data *data, char **map);
-// void	hit_wall(t_data	*data);
-// void	cast_rays(t_data *data);
+//movemets.c
+void	player_movement(t_data *data);
+void	move_up(t_data *data);
+void	move_left(t_data *data);
+void	move_down(t_data *data);
+void	move_right(t_data *data);
 
-// //HOOKS.C
-// int		closewin(t_data *data);
-// int		getkeys_press(int keycode, t_data *data);
-// int		getkeys_release(int keycode, t_data *data);
-// bool	mouse_trespass(int x, int y, t_data *data, double *oldx);
-// int		movemouse(int x, int y, t_data *data);
+//get2.c
+void	get_positions(t_data *data);
+void	get_dir(t_data *data, char dir);
 
-// //INIT_PLAYER.C
-// void	init_player(t_data *data);
+//hooks.c
+int		closewin(t_data *data);
+int		getkeys_press(int keycode, t_data *data);
+int		getkeys_release(int keycode, t_data *data);
+bool	mouse_trespass(int x, int y, t_data *data, double *oldx);
+int		movemouse(int x, int y, t_data *data);
 
-// //PLAYER.C
-// bool	has_valid(bool player);
-// void	set_info(t_player *info, int x, int y, char orientation);
-// bool	player_info(char **map, t_data *data);
+//utils.c
+int		is_spaces(char c);
 
-// //MAP.C
-// size_t	get_line_last(char *map);
-// bool	walls(char **map);
-// bool	parse_map(char **map, t_data *data);
+//valid.c
+int		valid_map(char *file);
 
-//TEXTURES.C
-void	textures_info2(t_data *map, char *line, int j);
-void	textures_info(t_data *data, int fd);
+//get.c
+void	create_map(t_data *data);
+void	get_textures(t_data *data);
+void	create_file(t_data *data, char *map);
+void	get_len(t_data *data, char *map);
+void	get_info(t_data *data, char *map);
 
-//LEN.C
-int		the_last(char *tmp, char c);
-int		len_file2(char *tmp, int i, t_data *data);
-void	len_file(char *file, t_data *data);
-
-//INFO.C
-int		map_info2(t_data *data, char *tmp, int j, int i);
-void	map_info(char *file, t_data *data);
-int		valid(char *file);
-int		info(t_data *data, char *file);
-
-//BOOM.C
-int		write_error(char *error_msg);
-void	error_msg(char *msg, t_data *data);
+//boom.c
 void	boom_file(char **file);
 void	boom_textures(t_data *data);
 void	boom(t_data *data);
+int		write_error(char *msg);
+void	error_msg(char *msg, t_data *data);
 
-//UTILS.C
-int		rgb_nbr(int n, int lowest, int highest);
-int		is_all_digits(const char *str);
-int		is_spaces(char c);
-int		valid_char(char c);
+//check.c
+bool	check_cmp(char *str1, char *str2);
+bool	check(char **argv, char *file);
 
-//CHECK.C
-int		check_rgb(int n, int low, int high);
-int		check_cmp(char *str1, char *str2);
-int		check(char **argv, char *file);
-
-//MAIN.C
+//main.c
 int		show_window(t_data *data);
 void	hooks(t_data *data);
 void	init(t_data *data);
