@@ -6,23 +6,39 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 15:41:08 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/16 13:02:10 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:57:27 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+// void	create_map(t_data *data)
+// {
+// 	size_t	i;
+// 	size_t	j;
+
+// 	data->len = data->len - 8;
+// 	data->map = malloc(sizeof(char *) * (data->len + 1));
+// 	i = 0;
+// 	j = 8;
+// 	while (i <= data->len)
+// 		data->map[i++] = data->file[j++];
+// }
 
 void	create_map(t_data *data)
 {
 	size_t	i;
 	size_t	j;
 
-	data->len = data->len - 8;
-	data->map = malloc(sizeof(char *) * (data->len + 1));
 	i = 0;
-	j = 8;
-	while (i <= data->len)
-		data->map[i++] = data->file[j++];
+	while (data->file[i][0] != '1')
+		i++;
+	data->len = data->len - i;
+	data->map = malloc(sizeof(char *) * (data->len + 1));
+	j = 0;
+	while (data->file[i] != NULL)
+		data->map[j++] = ft_strdup(data->file[i++]);
+	data->map[j] = NULL;
 }
 
 void	get_textures(t_data *data)
@@ -111,17 +127,6 @@ void	get_info(t_data *data, char *file)
 	get_len(data, file);
 	create_file(data, file);
 	get_textures(data);
-	int	i;
-	i = 0;
-	while(i < 3)
-	{
-		printf("C[%d]: %d\n", i, data->ceiling_rgb[i]);
-		printf("F[%d]: %d\n", i, data->floor_rgb[i]);
-		i++;
-	}
-		printf("NO: %s\n", data->no.path);
-		printf("SO: %s\n", data->so.path);
-		printf("WE: %s\n", data->we.path);
-		printf("EA: %s\n", data->ea.path);
 	create_map(data);
+	boom(data);
 }

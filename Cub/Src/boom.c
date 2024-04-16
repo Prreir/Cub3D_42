@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:21:56 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/15 17:31:47 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:54:41 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	boom_file(char **file)
 	i = 0;
 	if (!file)
 		return ;
-	while (file[i])
+	while (file[i] != NULL)
 	{
 		free(file[i]);
 		file[i] = NULL;
@@ -46,6 +46,10 @@ void	boom(t_data *data)
 	if (!data)
 		return ;
 	boom_textures(data);
+	free(data->no.path);
+	free(data->so.path);
+	free(data->we.path);
+	free(data->ea.path);
 	if (data->img.ptr)
 		mlx_destroy_image(data->mlx.ptr, data->img.ptr);
 	if (data->mlx.win)
@@ -55,6 +59,8 @@ void	boom(t_data *data)
 		mlx_destroy_display(data->mlx.ptr);
 		free(data->mlx.ptr);
 	}
+	if (data->file)
+		boom_file(data->file);
 	if (data->map)
 		boom_file(data->map);
 }
