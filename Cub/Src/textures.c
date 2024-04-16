@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:07:54 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/16 12:58:00 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:33:47 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	init_rgb(t_data *data, int j, int z)
 
 	index = 0;
 	i = z;
-	while (data->file[j][++z] && index < 3)
+	while (data->file[j][z++] && index < 3)
 	{
 		if (ft_isdigit(data->file[j][z]))
 		{

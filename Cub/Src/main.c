@@ -6,33 +6,38 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:28:59 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/16 13:51:35 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:04:04 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-// int	show_window(t_data *data)
-// {
-// 	player_movement(data);
-// 	cast_rays(data);
-// 	return (0);
-// }
+int	show_window(t_data *data)
+{
+	player_movement(data);
+	cast_rays(data);
+	mlx_destroy_image(data->mlx.ptr, data->img.ptr);
+	data->img.ptr = NULL;
+	return (0);
+}
 
-// void	hooks(t_data *data)
-// {
-// 	mlx_mouse_move(data->mlx.ptr, data->mlx.win, cos(data->player.dirx) 
-// 	+ cos(data->player.diry), (HEIGHT / 2));
-// 	mlx_hook(data->mlx.win, KEYPRESS_EVENT, (1L << 0), getkeys_press, data);
-// 	mlx_hook(data->mlx.win, KEYRELEASE_EVENT, (1L << 1), getkeys_release, data);
-// 	mlx_hook(data->mlx.win, MOTION_NOT_EVENT, (1L << 6), movemouse, data);
-// 	mlx_hook(data->mlx.win, DESTROY_NOT_EVENT, (1L << 17), closewin, data);
-// 	mlx_loop_hook(data->mlx.ptr, show_window, data);
-// 	mlx_loop(data->mlx.ptr);
-// }
+void	hooks(t_data *data)
+{
+	mlx_mouse_move(data->mlx.ptr, data->mlx.win, cos(data->player.dirx) 
+	+ cos(data->player.diry), (HEIGHT / 2));
+	mlx_hook(data->mlx.win, KEYPRESS_EVENT, (1L << 0), getkeys_press, data);
+	mlx_hook(data->mlx.win, KEYRELEASE_EVENT, (1L << 1), getkeys_release, data);
+	mlx_hook(data->mlx.win, MOTION_NOT_EVENT, (1L << 6), movemouse, data);
+	mlx_hook(data->mlx.win, DESTROY_NOT_EVENT, (1L << 17), closewin, data);
+	mlx_loop_hook(data->mlx.ptr, show_window, data);
+	mlx_loop(data->mlx.ptr);
+}
 
 void	init(t_data *data)
 {
+	data->mlx.ptr = mlx_init();
+	if (!data->mlx.ptr)
+		error_msg(MLX_INIT, data);
 	data->mlx.win = NULL;
 	data->no.ptr = NULL;
 	data->so.ptr = NULL;
@@ -60,13 +65,11 @@ int	main(int argc, char **argv)
 			error_msg(NULL, NULL);
 		init(&data);
 		get_info(&data, argv[1]);
-		// valid_map(&data);
-		// get_positions(&data);
-		// data.mlx.ptr = mlx_init();
-		// if (!data.mlx.ptr)
-		// 	error_msg(INIT_MLX, &data);
-		// data.mlx.win = mlx_new_window(data.mlx.ptr, WIDTH, HEIGHT, "cub3D");
-		// hooks(&data);
+		validad_map(&data);
+		data.mlx.win = mlx_new_window(data.mlx.ptr, WIDTH, HEIGHT, "cub3D");
+		if (!data.mlx.win)
+			error_msg(WIN_INIT, &data);
+		hooks(&data);
 	}
 	else if (argc != 2)
 		error_msg(INV_ARGS, NULL);

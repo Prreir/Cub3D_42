@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:21:56 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/16 13:54:41 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:37:20 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ void	boom(t_data *data)
 		mlx_destroy_display(data->mlx.ptr);
 		free(data->mlx.ptr);
 	}
-	if (data->file)
-		boom_file(data->file);
 	if (data->map)
 		boom_file(data->map);
 }

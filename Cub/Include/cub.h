@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 10:25:12 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/16 13:05:22 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/16 19:02:01 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,6 @@
 /*                                   Defines                                  */
 /* -------------------------------------------------------------------------- */
 
-# define INV_ARGS "Error\nInvalid Arguments"
-# define INV_MAP "Error\nInvalid Map File"
-# define MAP_INE "Error\nMap File Does Not Exist"
-# define INV_CHARS "Error\nInvalid Chars"
-# define TEXT_INV "Error\nInvalid Elements"
-# define ERROR_OP "Error\nCouldn't Open The File"
-# define MULT_STA "Error\nMultiple Start Positions"
-# define INV_CHAR "Error\nInvalid Map Composition"
-# define INIT_MLX "Error\nCouldn't Initialize Mlx"
-# define OPEN_WIN "Error\nCouldn't Open Window"
-
-# define WSIZE 64
 # define HEIGHT 720
 # define WIDTH 1280
 # define KEYPRESS_EVENT 2
@@ -53,8 +41,34 @@
 # define MOTION_NOT_EVENT 6
 # define DESTROY_NOT_EVENT 17
 # define FOV 60.0
-# define TEXTURE_WIDTH 2048
-# define TEXTURE_HEIGHT 2048
+# define TEXTURE_WIDTH 64
+# define TEXTURE_HEIGHT 64
+
+# define WHITE 0xFFFAFA
+# define BLACK 0x000000
+# define YELLOW 0xFFFF00
+# define MINIMAP_SQUARES_PADDING 4
+
+# define MARGIN 0.1f
+# define MOVESPEED 0.08f
+
+# define INV_ARGS "Error\nInvalid Arguments"
+# define INV_MAP "Error\nInvalid Map File"
+# define MLX_INIT "Error\nmlx_init() Failed"
+# define MAP_INE "Error\nMap File Does Not Exist"
+# define MAP_CHARS "Error\nInvalid Map Arguments"
+# define WIN_INIT "Error\nmlx_new_window() Failed"
+# define INV_NBR "Error\nInvalid Amount Of Element"
+# define TEX_ERR "Error\nFailed To Open Texture"
+# define ADDR_ERR "Error\nmlx_get_data_addr() Failed"
+# define ELE_MIS "Error\nMandatory Scene Element Missing"
+# define RGB_VAL "Error\nInvalid RGB Values"
+# define RGB_OUT "Error\nRGB Value Out Of Bounds [0, 255]"
+# define NOT_WALLS "Error\nScene's Map Is Not Surrounded By Walls ('1')"
+# define INV_COMP "Error\nScene's Map Is Wrongly Composed"
+# define INV_POS "Error\nMore Than One Player's Start Position"
+# define NO_START "Error\nNo Player's Start Position"
+# define MUL_START "Error\nMultiple Player's Start Position"
 
 /* -------------------------------------------------------------------------- */
 /*                                   Structs                                  */
@@ -138,10 +152,10 @@ typedef struct s_data
 /* -------------------------------------------------------------------------- */
 
 //rays2.c
-void	draw_square(t_texture *img, int x, int y, int color);
 void	draw_minimap(t_data *data);
-int		extract_pixel_from_image(t_texture *img, int x, int y);
+void	draw_square(t_texture *img, int x, int y, int color);
 void	draw_vertical_line(t_data *data, int i);
+void	init_rays(t_data *data, int i);
 
 //rays.c
 void	cast_rays(t_data *data);
@@ -156,10 +170,6 @@ void	move_up(t_data *data);
 void	move_left(t_data *data);
 void	move_down(t_data *data);
 void	move_right(t_data *data);
-
-//get2.c
-void	get_positions(t_data *data);
-void	get_dir(t_data *data, char dir);
 
 //hooks.c
 int		closewin(t_data *data);
@@ -179,6 +189,7 @@ void	rgb_text(t_data *data, int j, int z);
 int		is_spaces(char c);
 
 //valid.c
+void	validad_map(t_data *data);
 int		valid_map(char *file);
 
 //get.c
@@ -204,5 +215,56 @@ int		show_window(t_data *data);
 void	hooks(t_data *data);
 void	init(t_data *data);
 
+static inline t_texture	new_img(void *mlx_ptr)
+{
+	t_texture	new_img;
+
+	new_img.ptr = mlx_new_image(mlx_ptr, WIDTH, HEIGHT);
+	new_img.addr = mlx_get_data_addr(new_img.ptr, &new_img.bitpp,
+			&new_img.length_line, &new_img.endian);
+	return (new_img);
+}
+
+static inline void	put_pixel_in_canvas(t_texture *img, \
+	int x, int y, uint32_t color)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->length_line + x * (img->bitpp / 8));
+	*(uint32_t *)dst = color;
+}
+
+static inline int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
+
+static inline int	extract_pixel_from_image(t_texture *img,
+		int point_x, int point_y)
+{
+	return (*(uint32_t *)(img->addr
+		+ (point_y * img->length_line) + (point_x * img->bitpp / 8)));
+}
+
+static inline uint32_t	get_color(t_data *data)
+{
+	if (!data->ray.side)
+	{
+		if (data->player.start_x > data->ray.map_x)
+		{
+			return (extract_pixel_from_image(&data->we,
+					data->ray.tex_x, data->ray.tex_y));
+		}
+		return (extract_pixel_from_image(&data->ea,
+				data->ray.tex_x, data->ray.tex_y));
+	}
+	if (data->player.start_y > data->ray.map_y)
+	{
+		return (extract_pixel_from_image(&data->no,
+				data->ray.tex_x, data->ray.tex_y));
+	}
+	return (extract_pixel_from_image(&data->so,
+			data->ray.tex_x, data->ray.tex_y));
+}
 
 #endif

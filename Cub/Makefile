@@ -6,7 +6,7 @@
 #    By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 11:17:10 by lugoncal          #+#    #+#              #
-#    Updated: 2024/04/15 17:47:46 by lugoncal         ###   ########.fr        #
+#    Updated: 2024/04/16 18:58:12 by lugoncal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ SRC	:=	main.c \
 		check.c \
 		boom.c \
 		get.c \
-		get2.c \
 		valid.c \
 		hooks.c \
 		init_player.c \

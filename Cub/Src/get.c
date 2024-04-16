@@ -6,24 +6,11 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 15:41:08 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/16 13:57:27 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:57:26 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-// void	create_map(t_data *data)
-// {
-// 	size_t	i;
-// 	size_t	j;
-
-// 	data->len = data->len - 8;
-// 	data->map = malloc(sizeof(char *) * (data->len + 1));
-// 	i = 0;
-// 	j = 8;
-// 	while (i <= data->len)
-// 		data->map[i++] = data->file[j++];
-// }
 
 void	create_map(t_data *data)
 {
@@ -39,6 +26,7 @@ void	create_map(t_data *data)
 	while (data->file[i] != NULL)
 		data->map[j++] = ft_strdup(data->file[i++]);
 	data->map[j] = NULL;
+	boom_file(data->file);
 }
 
 void	get_textures(t_data *data)
@@ -103,7 +91,7 @@ void	get_len(t_data *data, char *map)
 
 	fd = open(map, O_RDONLY);
 	if (fd == 1)
-		write_error(ERROR_OP);
+		write_error(MAP_INE);
 	i = 0;
 	while (1)
 	{
@@ -123,10 +111,9 @@ void	get_len(t_data *data, char *map)
 void	get_info(t_data *data, char *file)
 {
 	if (!valid_map(file))
-		write_error(INV_CHARS);
+		write_error(MAP_CHARS);
 	get_len(data, file);
 	create_file(data, file);
 	get_textures(data);
 	create_map(data);
-	boom(data);
 }
