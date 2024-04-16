@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 10:25:12 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/15 17:41:27 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:05:22 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_player
 
 typedef struct s_texture
 {
+	char	*path;
 	void	*ptr;
 	char	*addr;
 	int		bitpp;
@@ -120,6 +121,8 @@ typedef struct s_data
 	int				movements[4];
 	int				ceiling_rgb[3];
 	int				floor_rgb[3];
+	int				ceiling_hex;
+	int				floor_hex;
 	t_mlx			mlx;
 	t_texture		img;
 	t_texture		no;
@@ -165,6 +168,13 @@ int		getkeys_release(int keycode, t_data *data);
 bool	mouse_trespass(int x, int y, t_data *data, double *oldx);
 int		movemouse(int x, int y, t_data *data);
 
+//textures.c
+void	loop_textures(t_data *data, int j, int z);
+void	init_textures(t_data *data, int j, int z);
+void	to_hex(t_data *data);
+void	init_rgb(t_data *data, int j, int z);
+void	rgb_text(t_data *data, int j, int z);
+
 //utils.c
 int		is_spaces(char c);
 
@@ -193,5 +203,6 @@ bool	check(char **argv, char *file);
 int		show_window(t_data *data);
 void	hooks(t_data *data);
 void	init(t_data *data);
+
 
 #endif

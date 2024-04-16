@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 15:41:08 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/15 17:43:52 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/16 13:02:10 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,34 @@ void	create_map(t_data *data)
 		data->map[i++] = data->file[j++];
 }
 
-// void	get_textures(t_data *data)
-// {
-// 	if (strncmp(data->file[0], "NO ", 3) == 0)
-// 		data->no = ft_strtrim(data->file[0], "NO ");
-// 	if (strncmp(data->file[1], "SO ", 3) == 0)
-// 		data->so = ft_strtrim(data->file[1], "SO ");
-// 	if (strncmp(data->file[2], "WE ", 3) == 0)
-// 		data->we = ft_strtrim(data->file[2], "WE ");
-// 	if (strncmp(data->file[3], "EA ", 3) == 0)
-// 		data->ea = ft_strtrim(data->file[3], "EA ");
-	// if (strncmp(data->file[5], "F ", 2) == 0)
-	// 	data->mlx.floor = ft_strtrim(data->file[5], "F ");
-	// if (strncmp(data->file[6], "C ", 2) == 0)
-	// 	data->mlx.ceiling = ft_strtrim(data->file[6], "C ");
-	// rgb_color(data->mlx.floor, data->mlx.floor_rgb);
-	// rgb_color(data->mlx.ceiling, data->mlx.ceiling_rgb);
-// }
+void	get_textures(t_data *data)
+{
+	int	i;
+	int	j;
+	int	z;
+
+	i = 0;
+	j = 0;
+	while(i != 6)
+	{
+		z = 0;
+		if (data->file[j][0] == '1' || data->file[j][0] == '0')
+			error_msg("Map Error", data);
+		while (is_spaces(data->file[j][z]))
+			z++;
+		if (data->file[j][z] == 'N' ||  data->file[j][z] == 'S'
+		|| data->file[j][z] == 'E' || data->file[j][z] == 'W'
+		|| data->file[j][z] == 'C' || data->file[j][z] == 'F')
+			i++;
+		else
+		{
+			j++;
+			continue ;
+		}
+		rgb_text(data, j, z);
+		j++;
+	}
+}
 
 void	create_file(t_data *data, char *map)
 {
@@ -51,8 +62,8 @@ void	create_file(t_data *data, char *map)
 
 	fd = open(map, O_RDONLY);
 	data->file = malloc(sizeof(char *) * (data->len + 1));
-	i = -1;
-	while (++i <= data->len)
+	i = 0;
+	while (i <= data->len)
 	{
 		tmp = get_next_line(fd);
 		if (!tmp)
@@ -62,7 +73,9 @@ void	create_file(t_data *data, char *map)
 		}
 		data->file[i] = ft_strtrim(tmp, "\n");
 		free(tmp);
+		i++;
 	}
+	data->file[i] = NULL;
 	close(fd);
 }
 
@@ -97,10 +110,18 @@ void	get_info(t_data *data, char *file)
 		write_error(INV_CHARS);
 	get_len(data, file);
 	create_file(data, file);
-	// get_textures(data);
-	// if (data->mlx.no_file == NULL || data->mlx.so_file == NULL || 
-	// 	data->mlx.we_file == NULL || data->mlx.floor == NULL || 
-	// 	data->mlx.ea_file == NULL || data->mlx.ceiling == NULL)
-	// 	error_msg(TEXT_INV, data);
+	get_textures(data);
+	int	i;
+	i = 0;
+	while(i < 3)
+	{
+		printf("C[%d]: %d\n", i, data->ceiling_rgb[i]);
+		printf("F[%d]: %d\n", i, data->floor_rgb[i]);
+		i++;
+	}
+		printf("NO: %s\n", data->no.path);
+		printf("SO: %s\n", data->so.path);
+		printf("WE: %s\n", data->we.path);
+		printf("EA: %s\n", data->ea.path);
 	create_map(data);
 }
