@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 15:41:08 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/16 18:57:26 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/17 10:35:57 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	create_map(t_data *data)
 	while (data->file[i] != NULL)
 		data->map[j++] = ft_strdup(data->file[i++]);
 	data->map[j] = NULL;
-	boom_file(data->file);
 }
 
 void	get_textures(t_data *data)
@@ -111,7 +110,7 @@ void	get_len(t_data *data, char *map)
 void	get_info(t_data *data, char *file)
 {
 	if (!valid_map(file))
-		write_error(MAP_CHARS);
+		error_msg(MAP_CHARS, data);
 	get_len(data, file);
 	create_file(data, file);
 	get_textures(data);

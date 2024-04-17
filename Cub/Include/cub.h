@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 10:25:12 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/16 19:02:01 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/17 10:49:44 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,10 +203,12 @@ void	get_info(t_data *data, char *map);
 void	boom_file(char **file);
 void	boom_textures(t_data *data);
 void	boom(t_data *data);
-int		write_error(char *msg);
+void	write_error(char *msg);
 void	error_msg(char *msg, t_data *data);
 
 //check.c
+int		check_nbr_rgb(int n, int lowest, int highest);
+int		check_rgb(t_data *data, int j, int z);
 bool	check_cmp(char *str1, char *str2);
 bool	check(char **argv, char *file);
 

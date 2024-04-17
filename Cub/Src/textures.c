@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:07:54 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/16 16:33:47 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/17 11:06:53 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ void	init_textures(t_data *data, int j, int z)
 
 void	to_hex(t_data *data)
 {
-	int				r;
-	int				g;
-	int				b;
+	int		r;
+	int		g;
+	int		b;
+	int		i;
 
 	r = data->ceiling_rgb[0];
 	g = data->ceiling_rgb[1];
@@ -67,6 +68,15 @@ void	to_hex(t_data *data)
 	g = data->floor_rgb[1];
 	b = data->floor_rgb[2];
 	data->floor_hex = ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
+	i = 0;
+	while (i < 3)
+	{
+		if (!check_nbr_rgb(data->ceiling_rgb[i], 0, 255))
+			error_msg("RGB error", data);
+		if (!check_nbr_rgb(data->floor_rgb[i], 0, 255))
+			error_msg("RGB error", data);
+		i++;
+	}
 }
 
 void	init_rgb(t_data *data, int j, int z)
@@ -94,14 +104,24 @@ void	init_rgb(t_data *data, int j, int z)
 		}
 	}
 	if (index == 2)
-		error_msg("Missing RGB.", data);
+		error_msg("Missing RGB", data);
 	to_hex(data);
 }
 
 void	rgb_text(t_data *data, int j, int z)
 {
+	data->ceiling_rgb[0] = 0;
+	data->ceiling_rgb[1] = 0;
+	data->ceiling_rgb[2] = 0;
+	data->floor_rgb[0] = 0;
+	data->floor_rgb[1] = 0;
+	data->floor_rgb[2] = 0;
 	if (data->file[j][z] == 'C' || data->file[j][z] == 'F')
+	{
+		if (!check_rgb(data, j, z))
+			error_msg("RGB ERROR", data);
 		init_rgb(data, j, z);
+	}
 	else if (data->file[j][z] == 'N' || data->file[j][z] == 'S'
 		|| data->file[j][z] == 'E' || data->file[j][z] == 'W')
 		init_textures(data, j, z);
