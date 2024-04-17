@@ -56,12 +56,12 @@ int	chars(t_data *data)
 		j = -1;
 		while (++j < len)
 		{
-			if (data->map[i][j] != '1' && data->map[i][j] != '0' && 
-			data->map[i][j] != 'N' && data->map[i][j] != 'S' && 
-			data->map[i][j] != 'E' && data->map[i][j] != 'W' &&
+			if (data->map[i][j] != '1' && data->map[i][j] != '0' && \
+			data->map[i][j] != 'N' && data->map[i][j] != 'S' && \
+			data->map[i][j] != 'E' && data->map[i][j] != 'W' && \
 			data->map[i][j] != ' ')
 				error_msg(MAP_CHARS, data);
-			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || 
+			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' || \
 			data->map[i][j] == 'E' || data->map[i][j] == 'W')
 				start++;
 		}

@@ -38,25 +38,25 @@ void	hit_wall(t_data	*data)
 	if (data->ray.dir_x < 0)
 	{
 		data->ray.step_x = -1;
-		data->ray.side_dist_x = (data->player.start_x - 
+		data->ray.side_dist_x = (data->player.start_x - \
 		data->ray.map_x) * data->ray.delta_dist_x;
 	}
 	else
 	{
 		data->ray.step_x = 1;
-		data->ray.side_dist_x = (data->ray.map_x + 1.0f - 
+		data->ray.side_dist_x = (data->ray.map_x + 1.0f - \
 		data->player.start_x) * data->ray.delta_dist_x;
 	}
 	if (data->ray.dir_y > 0)
 	{
 		data->ray.step_y = -1;
-		data->ray.side_dist_y = (data->player.start_y - 
+		data->ray.side_dist_y = (data->player.start_y - \
 		data->ray.map_y) * data->ray.delta_dist_y;
 	}
 	else
 	{
 		data->ray.step_y = 1;
-		data->ray.side_dist_y = (data->ray.map_y + 1.0f - 
+		data->ray.side_dist_y = (data->ray.map_y + 1.0f - \
 		data->player.start_y) * data->ray.delta_dist_y;
 	}
 }
@@ -85,10 +85,10 @@ void	distance_to_wall(t_data *data, char **map)
 void	wall_height(t_data *data)
 {
 	if (!data->ray.side)
-		data->ray.perp_wall_dist = data->ray.side_dist_x 
+		data->ray.perp_wall_dist = data->ray.side_dist_x \
 		- data->ray.delta_dist_x;
 	else
-		data->ray.perp_wall_dist = data->ray.side_dist_y 
+		data->ray.perp_wall_dist = data->ray.side_dist_y \
 		- data->ray.delta_dist_y;
 	data->ray.line_height = (int)(HEIGHT / data->ray.perp_wall_dist);
 	data->ray.draw_start = -data->ray.line_height / 2 + HEIGHT / 2;
@@ -102,10 +102,10 @@ void	wall_height(t_data *data)
 void	wall_pixel(t_data *data)
 {
 	if (!data->ray.side)
-		data->ray.wall_x = (int)data->player.start_y + 
+		data->ray.wall_x = (int)data->player.start_y + \
 		data->ray.perp_wall_dist * data->ray.dir_y;
 	else
-		data->ray.wall_x = (int)data->player.start_x + 
+		data->ray.wall_x = (int)data->player.start_x + \
 		data->ray.perp_wall_dist * data->ray.dir_x;
 	data->ray.wall_x -= floor(data->ray.wall_x);
 	data->ray.tex_x = (int)(data->ray.wall_x * (double)TEXTURE_WIDTH);
@@ -114,6 +114,6 @@ void	wall_pixel(t_data *data)
 	if (data->ray.side && data->ray.dir_y < 0)
 		data->ray.tex_x = TEXTURE_WIDTH - data->ray.tex_x - 1;
 	data->ray.step = 1.0 * TEXTURE_HEIGHT / data->ray.line_height;
-	data->ray.tex_pos = (data->ray.draw_start - (HEIGHT / 2) + 
+	data->ray.tex_pos = (data->ray.draw_start - (HEIGHT / 2) + \
 	data->ray.line_height / 2) * data->ray.step;
 }

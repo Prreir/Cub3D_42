@@ -17,18 +17,18 @@
 /*                                  Includes                                  */
 /* -------------------------------------------------------------------------- */
 
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include "libft.h"
-#include "get_next_line.h"
-#include "mlx.h"
-#include "mlx_int.h"
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <math.h>
+# include <stdint.h>
+# include <stdbool.h>
+# include "libft.h"
+# include "get_next_line.h"
+# include "mlx.h"
+# include "mlx_int.h"
 
 /* -------------------------------------------------------------------------- */
 /*                                   Defines                                  */

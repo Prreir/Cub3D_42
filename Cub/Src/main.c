@@ -23,13 +23,13 @@ int	show_window(t_data *data)
 
 void	hooks(t_data *data)
 {
-	mlx_mouse_move(data->mlx.ptr, data->mlx.win, cos(data->player.dirx) 
-	+ cos(data->player.diry), (HEIGHT / 2));
+	mlx_mouse_move(data->mlx.ptr, data->mlx.win, cos(data->player.dirx) \
+		+ cos(data->player.diry), (HEIGHT / 2));
 	mlx_hook(data->mlx.win, KEYPRESS_EVENT, (1L << 0), getkeys_press, data);
 	mlx_hook(data->mlx.win, KEYRELEASE_EVENT, (1L << 1), getkeys_release, data);
 	mlx_hook(data->mlx.win, MOTION_NOT_EVENT, (1L << 6), movemouse, data);
 	mlx_hook(data->mlx.win, DESTROY_NOT_EVENT, (1L << 17), closewin, data);
-	// mlx_loop_hook(data->mlx.ptr, show_window, data);
+	mlx_loop_hook(data->mlx.ptr, show_window, data);
 	mlx_loop(data->mlx.ptr);
 }
 
@@ -74,6 +74,7 @@ int	main(int argc, char **argv)
 		if (!data.mlx.win)
 			error_msg(WIN_INIT, &data);
 		hooks(&data);
+		boom(&data);
 	}
 	else if (argc != 2)
 		error_msg(INV_ARGS, NULL);

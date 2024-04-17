@@ -69,8 +69,8 @@ int	check_rgb(t_data *data, int j, int z)
 	i = 0;
 	while (data->file[j][z])
 	{
-		if (data->file[j][z] == ',' && ft_isdigit(data->file[j][z - 1]) 
-		&& ft_isdigit(data->file[j][z + 1]))
+		if (data->file[j][z] == ',' && ft_isdigit(data->file[j][z - 1]) \
+			&& ft_isdigit(data->file[j][z + 1]))
 			i++;
 		z++;
 	}

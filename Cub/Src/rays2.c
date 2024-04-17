@@ -15,9 +15,9 @@
 void	init_rays(t_data *data, int i)
 {
 	data->ray.camera_x = 2 * i / (double)WIDTH - 1;
-	data->ray.dir_x = data->player.dirx + data->player.planex 
+	data->ray.dir_x = data->player.dirx + data->player.planex \
 	* data->ray.camera_x;
-	data->ray.dir_y = data->player.diry + data->player.planey 
+	data->ray.dir_y = data->player.diry + data->player.planey \
 	* data->ray.camera_x;
 	data->ray.map_x = (int)data->player.start_x;
 	data->ray.map_y = (int)data->player.start_y;
@@ -33,7 +33,7 @@ void	draw_vertical_line(t_data *data, int i)
 	y = -1;
 	while (++y < data->ray.draw_start)
 	{
-		put_pixel_in_canvas(&data->img, i, y, create_trgb(256, 
+		put_pixel_in_canvas(&data->img, i, y, create_trgb(256, \
 			data->ceiling_rgb[0], data->ceiling_rgb[1], data->ceiling_rgb[2]));
 	}
 	y = data->ray.draw_start;
@@ -47,7 +47,7 @@ void	draw_vertical_line(t_data *data, int i)
 	y = data->ray.draw_end;
 	while (y < HEIGHT)
 	{
-		put_pixel_in_canvas(&data->img, i, y, create_trgb(256, 
+		put_pixel_in_canvas(&data->img, i, y, create_trgb(256, \
 			data->floor_rgb[0], data->floor_rgb[1], data->floor_rgb[2]));
 		y += 1;
 	}
@@ -84,7 +84,7 @@ void	draw_minimap(t_data *data)
 		map_length = ft_strlen(data->map[y]);
 		while (x < map_length)
 		{
-			if (x == (size_t)data->player.start_x && y == 
+			if (x == (size_t)data->player.start_x && y == \
 				(size_t)data->player.start_y)
 				draw_square(&data->img, x, y, YELLOW);
 			else if (data->map[y][x] == '1')

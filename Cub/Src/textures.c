@@ -18,13 +18,15 @@ void	loop_textures(t_data *data, int j, int z)
 	int	start;
 
 	i = z + 2;
-	while (data->file[j][i])
+	while (data->file[j][i++]) // mais 25 linhas mudei o i++ dentro do while para aqui <--
 	{
 		if (ft_isalpha(data->file[j][i]) || data->file[j][i] == '.'
-			|| data->file[j][i] == '/' || data->file[j][i] == '.' || data->file[j][i] == '/')
+			|| data->file[j][i] == '/' || data->file[j][i] == '.' || \
+				data->file[j][i] == '/')
 		{
 			start = i;
-			while (data->file[j][i] && !is_spaces(data->file[j][i]) && data->file[j][i] != '\n')
+			while (data->file[j][i] && !is_spaces(data->file[j][i]) \
+				&& data->file[j][i] != '\n')
 				i++;
 			if (data->file[j][z] == 'N')
 				data->no.path = ft_substr(data->file[j], start, i - start);
@@ -36,7 +38,6 @@ void	loop_textures(t_data *data, int j, int z)
 				data->ea.path = ft_substr(data->file[j], start, i - start);
 			break ;
 		}
-		i++;
 	}
 }
 

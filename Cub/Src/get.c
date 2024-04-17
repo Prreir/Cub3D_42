@@ -36,14 +36,14 @@ void	get_textures(t_data *data)
 
 	i = 0;
 	j = 0;
-	while(i != 6)
+	while (i != 6)
 	{
 		z = 0;
 		if (data->file[j][0] == '1' || data->file[j][0] == '0')
 			error_msg("Map Error", data);
 		while (is_spaces(data->file[j][z]))
 			z++;
-		if (data->file[j][z] == 'N' ||  data->file[j][z] == 'S'
+		if (data->file[j][z] == 'N' || data->file[j][z] == 'S'
 		|| data->file[j][z] == 'E' || data->file[j][z] == 'W'
 		|| data->file[j][z] == 'C' || data->file[j][z] == 'F')
 			i++;
@@ -59,9 +59,9 @@ void	get_textures(t_data *data)
 
 void	create_file(t_data *data, char *map)
 {
-	int		fd;
+	int			fd;
 	size_t		i;
-	char	*tmp;
+	char		*tmp;
 
 	fd = open(map, O_RDONLY);
 	data->file = malloc(sizeof(char *) * (data->len + 1));
