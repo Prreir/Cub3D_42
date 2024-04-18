@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 10:25:12 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/18 11:01:46 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:45:39 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,11 @@ void	init_textures(t_data *data, int j, int z);
 void	to_hex(t_data *data);
 void	init_rgb(t_data *data, int j, int z);
 void	rgb_text(t_data *data, int j, int z);
+
+//player.c
+void	has_valid(bool player, t_data *data);
+void	set_info(t_player *info, int x, int y, char orientation);
+void	get_player(t_data *data, bool player);
 
 //utils.c
 int		valid_char(char c);

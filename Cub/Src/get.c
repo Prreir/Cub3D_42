@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 15:41:08 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/18 11:11:20 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:45:59 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ void	get_len(t_data *data, char *map)
 
 void	get_info(t_data *data, char *file)
 {
+	bool	player;
+
 	if (!valid_map(file))
 		error_msg(MAP_CHARS, data);
 	data->len = 0;
@@ -120,4 +122,7 @@ void	get_info(t_data *data, char *file)
 	create_file(data, file);
 	get_textures(data);
 	create_map(data);
+	validad_map(data);
+	player = false;
+	get_player(data, player);
 }

@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:28:59 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/18 11:08:36 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:42:23 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init(t_data *data)
 	if (!data->mlx.ptr)
 		error_msg(MLX_INIT, data);
 	data->file = NULL;
+	data->file = NULL;
 	data->mlx.win = NULL;
 	data->no.path = NULL;
 	data->so.path = NULL;
@@ -70,12 +71,10 @@ int	main(int argc, char **argv)
 			error_msg(NULL, NULL);
 		init(&data);
 		get_info(&data, argv[1]);
-		validad_map(&data);
 		data.mlx.win = mlx_new_window(data.mlx.ptr, WIDTH, HEIGHT, "cub3D");
 		if (!data.mlx.win)
 			error_msg(WIN_INIT, &data);
 		hooks(&data);
-		// boom(&data);
 	}
 	else if (argc != 2)
 		error_msg(INV_ARGS, NULL);
