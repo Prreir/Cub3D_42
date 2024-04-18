@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 13:56:02 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/16 23:50:04 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:00:01 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,6 @@ void	validad_map(t_data *data)
 	valid_ends(data, 0);
 	valid_ends(data, data->len - 1);
 	valid_lines(data);
-}
-
-int	valid_char(char c)
-{
-	if (c == 'N' || c == 'S' || c == 'W' || c == 'E'
-		|| c == 'F' || c == 'C' || c == '1' || is_spaces(c))
-		return (1);
-	return (0);
 }
 
 int	valid_map(char *file)

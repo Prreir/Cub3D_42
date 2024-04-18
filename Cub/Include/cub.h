@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 10:25:12 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/17 10:49:44 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/18 11:01:46 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ void	init_rgb(t_data *data, int j, int z);
 void	rgb_text(t_data *data, int j, int z);
 
 //utils.c
+int		valid_char(char c);
 int		is_spaces(char c);
 
 //valid.c
