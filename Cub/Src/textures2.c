@@ -26,12 +26,8 @@ void	load_img(t_data *map, t_texture *image, char *path)
 
 void	textures(t_data *data)
 {
-	if (data->no.path && data->so.path && 
-		data->we.path && data->ea.path )
-	{
 		load_img(data->mlx.ptr, &data->no, data->no.path);
 		load_img(data->mlx.ptr, &data->so, data->so.path);
 		load_img(data->mlx.ptr, &data->we, data->we.path);
 		load_img(data->mlx.ptr, &data->ea, data->ea.path);
-	}
 }
