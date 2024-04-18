@@ -6,7 +6,7 @@
 #    By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/09 11:17:10 by lugoncal          #+#    #+#              #
-#    Updated: 2024/04/18 11:33:33 by lugoncal         ###   ########.fr        #
+#    Updated: 2024/04/18 13:30:56 by lugoncal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRC	:=	main.c \
 		rays2.c \
 		textures.c \
 		utils.c \
+		textures2.c \
 
 SOURCES	:=	$(addprefix $(SRC_DIR), $(SRC))
 OBJS	:=	$(SRC:.c=.o)

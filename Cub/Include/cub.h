@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 10:25:12 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/18 11:45:39 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:20:28 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,10 @@ typedef struct s_data
 /*                                 Prototypes                                 */
 /* -------------------------------------------------------------------------- */
 
+//textures2.c
+void	load_img(t_data *map, t_texture *image, char *path);
+void	textures(t_data *data);
+
 //rays2.c
 void	draw_minimap(t_data *data);
 void	draw_square(t_texture *img, int x, int y, int color);
@@ -177,6 +181,9 @@ int		getkeys_press(int keycode, t_data *data);
 int		getkeys_release(int keycode, t_data *data);
 bool	mouse_trespass(int x, int y, t_data *data, double *oldx);
 int		movemouse(int x, int y, t_data *data);
+
+//init_player.c
+void	init_player(t_data *data);
 
 //textures.c
 void	loop_textures(t_data *data, int j, int z);
@@ -213,6 +220,7 @@ void	write_error(char *msg);
 void	error_msg(char *msg, t_data *data);
 
 //check.c
+size_t	ft_len(char **str);
 int		check_nbr_rgb(int n, int lowest, int highest);
 int		check_rgb(t_data *data, int j, int z);
 bool	check_cmp(char *str1, char *str2);

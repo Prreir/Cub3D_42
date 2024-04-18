@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 15:41:08 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/18 11:45:59 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:16:24 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,4 +125,5 @@ void	get_info(t_data *data, char *file)
 	validad_map(data);
 	player = false;
 	get_player(data, player);
+	init_player(data);
 }

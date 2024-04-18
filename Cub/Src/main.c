@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 11:28:59 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/18 11:42:23 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:20:03 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	hooks(t_data *data)
 	mlx_hook(data->mlx.win, KEYRELEASE_EVENT, (1L << 1), getkeys_release, data);
 	mlx_hook(data->mlx.win, MOTION_NOT_EVENT, (1L << 6), movemouse, data);
 	mlx_hook(data->mlx.win, DESTROY_NOT_EVENT, (1L << 17), closewin, data);
-	// mlx_loop_hook(data->mlx.ptr, show_window, data);
+	mlx_loop_hook(data->mlx.ptr, show_window, data);
 	mlx_loop(data->mlx.ptr);
 }
 
@@ -38,7 +38,7 @@ void	init(t_data *data)
 	data->mlx.ptr = mlx_init();
 	if (!data->mlx.ptr)
 		error_msg(MLX_INIT, data);
-	data->file = NULL;
+	data->map = NULL;
 	data->file = NULL;
 	data->mlx.win = NULL;
 	data->no.path = NULL;
@@ -74,6 +74,7 @@ int	main(int argc, char **argv)
 		data.mlx.win = mlx_new_window(data.mlx.ptr, WIDTH, HEIGHT, "cub3D");
 		if (!data.mlx.win)
 			error_msg(WIN_INIT, &data);
+		textures(&data);
 		hooks(&data);
 	}
 	else if (argc != 2)

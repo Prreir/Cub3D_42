@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:07:54 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/18 11:18:08 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:10:26 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	loop_textures(t_data *data, int j, int z)
 	int	start;
 
 	i = z + 2;
-	while (data->file[j][i]) // mais 25 linhas mudei o i++ dentro do while para aqui <--
+	while (data->file[j][i])
 	{
 		if (ft_isalpha(data->file[j][i]) || data->file[j][i] == '.'
 			|| data->file[j][i] == '/')
