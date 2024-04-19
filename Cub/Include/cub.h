@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 10:25:12 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/19 13:16:33 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:59:36 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ typedef struct s_data
 
 //textures2.c
 void	init_texture_img(t_data *map, t_texture *image, char *path);
+void	check_xpm(char *path, t_data *data);
 void	textures(t_data *data);
 
 //rays2.c
