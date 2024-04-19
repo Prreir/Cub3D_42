@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 10:25:12 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/18 14:20:28 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/19 10:48:37 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,6 @@ typedef struct s_data
 	int				movements[4];
 	int				ceiling_rgb[3];
 	int				floor_rgb[3];
-	int				ceiling_hex;
-	int				floor_hex;
 	t_mlx			mlx;
 	t_texture		img;
 	t_texture		no;
@@ -152,7 +150,7 @@ typedef struct s_data
 /* -------------------------------------------------------------------------- */
 
 //textures2.c
-void	load_img(t_data *map, t_texture *image, char *path);
+void	init_texture_img(t_data *map, t_texture *image, char *path);
 void	textures(t_data *data);
 
 //rays2.c
@@ -188,8 +186,7 @@ void	init_player(t_data *data);
 //textures.c
 void	loop_textures(t_data *data, int j, int z);
 void	init_textures(t_data *data, int j, int z);
-void	to_hex(t_data *data);
-void	init_rgb(t_data *data, int j, int z);
+void	init_rgb(int id, t_data *data, int *rgb, int j, int z);
 void	rgb_text(t_data *data, int j, int z);
 
 //player.c

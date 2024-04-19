@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:07:54 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/18 14:10:26 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/19 10:49:14 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,41 +54,15 @@ void	init_textures(t_data *data, int j, int z)
 		loop_textures(data, j, z);
 }
 
-void	to_hex(t_data *data)
+void	init_rgb(int id, t_data *data, int *rgb, int j, int z)
 {
-	int		r;
-	int		g;
-	int		b;
-	int		i;
+	int i;
+	int	index;
+	int	start;
+	char *tmp;
 
-	r = data->ceiling_rgb[0];
-	g = data->ceiling_rgb[1];
-	b = data->ceiling_rgb[2];
-	data->ceiling_hex = ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-	r = data->floor_rgb[0];
-	g = data->floor_rgb[1];
-	b = data->floor_rgb[2];
-	data->floor_hex = ((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff);
-	i = 0;
-	while (i < 3)
-	{
-		if (!check_nbr_rgb(data->ceiling_rgb[i], 0, 255))
-			error_msg("RGB error", data);
-		if (!check_nbr_rgb(data->floor_rgb[i], 0, 255))
-			error_msg("RGB error", data);
-		i++;
-	}
-}
-
-void	init_rgb(t_data *data, int j, int z)
-{
-	int		index;
-	int		start;
-	char	*temp;
-	int		i;
-
-	index = 0;
 	i = z;
+	index = 0;
 	while (data->file[j][z++] && index < 3)
 	{
 		if (ft_isdigit(data->file[j][z]))
@@ -96,32 +70,28 @@ void	init_rgb(t_data *data, int j, int z)
 			start = z;
 			while (ft_isdigit(data->file[j][z]))
 				z++;
-			temp = ft_substr(data->file[j], start, z - start);
-			if (data->file[j][i] == 'C')
-				data->ceiling_rgb[index++] = ft_atoi(temp);
-			else if (data->file[j][i] == 'F')
-				data->floor_rgb[index++] = ft_atoi(temp);
-			free(temp);
+			tmp = ft_substr(data->file[j], start, z - start);
+			if (data->file[j][i] == id)
+				rgb[index] = ft_atoi(tmp);
+			free(tmp);
+			index++;
 		}
 	}
-	if (index == 2)
-		error_msg("Missing RGB", data);
-	to_hex(data);
 }
 
 void	rgb_text(t_data *data, int j, int z)
 {
-	data->ceiling_rgb[0] = 0;
-	data->ceiling_rgb[1] = 0;
-	data->ceiling_rgb[2] = 0;
-	data->floor_rgb[0] = 0;
-	data->floor_rgb[1] = 0;
-	data->floor_rgb[2] = 0;
-	if (data->file[j][z] == 'C' || data->file[j][z] == 'F')
+	if (data->file[j][z] == 'C')
 	{
 		if (!check_rgb(data, j, z))
 			error_msg("RGB ERROR", data);
-		init_rgb(data, j, z);
+		init_rgb('C', data, data->ceiling_rgb, j, z);
+	}
+	else if (data->file[j][z] == 'F')
+	{
+		if (!check_rgb(data, j, z))
+			error_msg("RGB ERROR", data);
+		init_rgb('F', data, data->floor_rgb, j, z);
 	}
 	else if (data->file[j][z] == 'N' || data->file[j][z] == 'S'
 		|| data->file[j][z] == 'E' || data->file[j][z] == 'W')
