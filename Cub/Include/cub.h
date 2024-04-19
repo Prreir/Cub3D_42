@@ -69,6 +69,9 @@
 # define INV_POS "Error\nMore Than One Player's Start Position"
 # define NO_START "Error\nNo Player's Start Position"
 # define MUL_START "Error\nMultiple Player's Start Position"
+# define MAP_FIRST "Error\nMap Can't Come First"
+# define DUP_TEXT "Error\nDifferent Path Textures For One Identifier"
+# define NOT_XPM "Error\nMap File Is Not .xpm Type"
 
 /* -------------------------------------------------------------------------- */
 /*                                   Structs                                  */

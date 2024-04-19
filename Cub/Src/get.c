@@ -42,7 +42,7 @@ void	get_textures(t_data *data)
 	{
 		z = 0;
 		if (data->file[j][0] == '1' || data->file[j][0] == '0')
-			error_msg("Map Error", data);
+			error_msg(MAP_FIRST, data);
 		while (is_spaces(data->file[j][z]))
 			z++;
 		if (data->file[j][z] == 'N' || data->file[j][z] == 'S'
@@ -126,9 +126,9 @@ void	get_info(t_data *data, char *file)
 	while (i < 3)
 	{
 		if (!check_nbr_rgb(data->ceiling_rgb[i], 0, 255))
-			error_msg("RGB error", data);
+			error_msg(RGB_OUT, data);
 		if (!check_nbr_rgb(data->floor_rgb[i], 0, 255))
-			error_msg("RGB error", data);
+			error_msg(RGB_OUT, data);
 		i++;
 	}
 	create_map(data);

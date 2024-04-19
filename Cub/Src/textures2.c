@@ -28,7 +28,7 @@ void	check_xpm(char *path, t_data *data)
 
 	id = ft_strlen(path) - 4;
 	if (!check_cmp(&path[id], ".xpm"))
-		error_msg("Not XPM", data);
+		error_msg(NOT_XPM, data);
 }
 
 void	textures(t_data *data)
