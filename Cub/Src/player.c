@@ -32,7 +32,7 @@ void	get_player(t_data *data, bool player)
 	int		j;
 
 	i = 0;
-	while(data->map[i] != NULL)
+	while (data->map[i] != NULL)
 	{
 		j = 0;
 		while (data->map[i][j])

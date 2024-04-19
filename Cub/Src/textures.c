@@ -56,10 +56,10 @@ void	init_textures(t_data *data, int j, int z)
 
 void	init_rgb(int id, t_data *data, int *rgb, int j, int z)
 {
-	int i;
-	int	index;
-	int	start;
-	char *tmp;
+	int		i;
+	int		index;
+	int		start;
+	char	*tmp;
 
 	i = z;
 	index = 0;
