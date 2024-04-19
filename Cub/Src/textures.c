@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:07:54 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/19 13:37:15 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:47:35 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ void	rgb_text(t_data *data, int j, int z)
 		(data->file[j][z] == 'W' && data->we.path == NULL) || 
 		(data->file[j][z] == 'E' && data->ea.path == NULL))
 		init_textures(data, j, z);
-	else
-		error_msg ("Texture Dup", data);
+	else if ((data->file[j][z] == 'N' && data->no.path != NULL) || 
+		(data->file[j][z] == 'S' && data->so.path != NULL) || 
+		(data->file[j][z] == 'W' && data->we.path != NULL) || 
+		(data->file[j][z] == 'E' && data->ea.path != NULL))
+		error_msg("Texture Dup", data);
 }
