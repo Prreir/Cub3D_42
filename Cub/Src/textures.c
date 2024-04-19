@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:07:54 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/19 10:49:14 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:17:34 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,12 @@ void	init_textures(t_data *data, int j, int z)
 		loop_textures(data, j, z);
 }
 
-void	init_rgb(int id, t_data *data, int *rgb, int j, int z)
+void	init_rgb(t_data *data, int *rgb, int j, int z)
 {
-	int		i;
 	int		index;
 	int		start;
 	char	*tmp;
 
-	i = z;
 	index = 0;
 	while (data->file[j][z++] && index < 3)
 	{
@@ -71,8 +69,7 @@ void	init_rgb(int id, t_data *data, int *rgb, int j, int z)
 			while (ft_isdigit(data->file[j][z]))
 				z++;
 			tmp = ft_substr(data->file[j], start, z - start);
-			if (data->file[j][i] == id)
-				rgb[index] = ft_atoi(tmp);
+			rgb[index] = ft_atoi(tmp);
 			free(tmp);
 			index++;
 		}
@@ -85,13 +82,13 @@ void	rgb_text(t_data *data, int j, int z)
 	{
 		if (!check_rgb(data, j, z))
 			error_msg("RGB ERROR", data);
-		init_rgb('C', data, data->ceiling_rgb, j, z);
+		init_rgb(data, data->ceiling_rgb, j, z);
 	}
 	else if (data->file[j][z] == 'F')
 	{
 		if (!check_rgb(data, j, z))
 			error_msg("RGB ERROR", data);
-		init_rgb('F', data, data->floor_rgb, j, z);
+		init_rgb(data, data->floor_rgb, j, z);
 	}
 	else if (data->file[j][z] == 'N' || data->file[j][z] == 'S'
 		|| data->file[j][z] == 'E' || data->file[j][z] == 'W')

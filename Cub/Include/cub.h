@@ -6,7 +6,7 @@
 /*   By: lugoncal < lugoncal@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 10:25:12 by lugoncal          #+#    #+#             */
-/*   Updated: 2024/04/19 10:48:37 by lugoncal         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:16:33 by lugoncal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void	init_player(t_data *data);
 //textures.c
 void	loop_textures(t_data *data, int j, int z);
 void	init_textures(t_data *data, int j, int z);
-void	init_rgb(int id, t_data *data, int *rgb, int j, int z);
+void	init_rgb(t_data *data, int *rgb, int j, int z);
 void	rgb_text(t_data *data, int j, int z);
 
 //player.c
